@@ -1,6 +1,6 @@
 /* Karel's job is to check enclosed rectangles.
- * If there's a beeper in the enclosed rectangle, Karel moves to the next space.
- * If there's no beeper in the center square, Karel must check the other two squares
+ * If there's a beeper in the enclosed rectangle, Karel moves to two spaces.
+ * If there's no beeper in the center square, Karel must check the left and right squares
  * and pickup any beepers.
  */
 package week1;
