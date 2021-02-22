@@ -1,4 +1,7 @@
+
+=======
 //This program lists the Fibonacci Sequence
+
 
 package week2;
 
@@ -11,7 +14,15 @@ public class Fibonacci extends ConsoleProgram {
 	
 	public void run() {
 	println("This program lists the Fibonacci Sequence:");
-	
+
+		int term = 0;
+		int term1 = 1;
+		while (term <= MAX_TERM_VALUE) {	
+			println(term);					
+			int term2 = term + term1;			
+			term  = term1;					
+			term1 = term2;					
+=======
 		int Fib = 0;
 		int Fib1 = 1;
 		while (Fib < MAX_TERM_VALUE) {	
@@ -19,6 +30,7 @@ public class Fibonacci extends ConsoleProgram {
 			int Fib2 = Fib + Fib1;			
 			Fib  = Fib1;					
 			Fib1 = Fib2;					
+
 			}
 	}
 }
