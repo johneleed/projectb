@@ -1,3 +1,12 @@
+
+package week2;
+
+import acm.program.GraphicsProgram;
+
+public class RandomCircles extends GraphicsProgram {
+
+}
+=======
 //This program will produce random circles with random radius, colors and location.
 
 package week2;
@@ -25,3 +34,4 @@ private static final douvle MAX_RADIUS = 50;
 				add (circle);	
 	}
 }
+
