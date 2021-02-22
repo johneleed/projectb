@@ -1,3 +1,5 @@
+//This program lists the Fibonacci Sequence
+
 package week2;
 
 import acm.program.*;
@@ -12,7 +14,7 @@ public class Fibonacci extends ConsoleProgram {
 	
 		int Fib = 0;
 		int Fib1 = 1;
-		while (Fib <= MAX_TERM_VALUE) {	
+		while (Fib < MAX_TERM_VALUE) {	
 			println(Fib);					
 			int Fib2 = Fib + Fib1;			
 			Fib  = Fib1;					
