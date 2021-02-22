@@ -1,7 +1,7 @@
-/* This program allows the user to draw lines on the canvas. Pressing the 
-mouse button sets the starting point for the line.  Dragging the mouse moves the other 
-endpoint around as the drag proceeds. Releasing the mouse fixes the line in its current 
-position and gets ready to start a new line.  
+/* This program allows the user to draw lines on the canvas. Pressing the
+mouse button sets the starting point for the line. Dragging the mouse moves the other
+endpoint around as the drag proceeds. Releasing the mouse fixes the line in its current
+position and gets ready to start a new line.
  */
 
 package week2;
@@ -10,7 +10,7 @@ import acm.graphics.*;
 import acm.program.*;
 import java.awt.event.*;
 
-public class DrawLines extends GraphicsProgram {
+public class DrawingLines extends GraphicsProgram {
 	public void run() {
 		readInstructions();
 		addMouseListeners();
