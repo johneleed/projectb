@@ -16,7 +16,7 @@ import javax.swing.*;
 
 public class BoxDiagram extends GraphicsProgram {
 	
-	/* Initializes the program */
+	/** Initializes the program */
 	public void init() {
 		contents = new HashMap<String,GObject>();
 		createController();
@@ -24,7 +24,7 @@ public class BoxDiagram extends GraphicsProgram {
 		addMouseListeners();
 	}
 	
-	/* Creates the control strip at the bottom of the window */
+	/** Creates the control strip at the bottom of the window */
 	private void createController() {
 		nameField = new JTextField(MAX_NAME);
 		nameField.addActionListener(this);
@@ -38,7 +38,7 @@ public class BoxDiagram extends GraphicsProgram {
 		add(clearButton, SOUTH);
 	}
 	
-	/* Adds a box with the given name at the center of the window */
+	/** Adds a box with the given name at the center of the window */
 	private void addBox(String name) {
 		GCompound box = new GCompound();
 		GRect outline = new GRect(BOX_WIDTH, BOX_HEIGHT);
@@ -49,7 +49,7 @@ public class BoxDiagram extends GraphicsProgram {
 		contents.put(name, box);
 	}
 	
-	/* Removes the box with the given name */
+	/** Removes the box with the given name */
 	private void removeBox(String name) {
 		GObject obj = contents.get(name);
 		if (obj != null) {
@@ -57,7 +57,7 @@ public class BoxDiagram extends GraphicsProgram {
 		}
 	}
 
-	/* Removes all boxes in the contents table */
+	/** Removes all boxes in the contents table */
 	private void removeContents() {
 		Iterator<String> iterator = contents.keySet().iterator();
 		while (iterator.hasNext()) {
@@ -66,7 +66,7 @@ public class BoxDiagram extends GraphicsProgram {
 		contents.clear(); // Clear all entries in the hashmap
 	}
 	
-	/* Called in response to button actions */
+	/** Called in response to button actions */
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source == addButton || source == nameField) {
@@ -78,13 +78,13 @@ public class BoxDiagram extends GraphicsProgram {
 		}
 	}
 	
-	/* Called on mouse press to record the coordinates of the click */
+	/** Called on mouse press to record the coordinates of the click */
 	public void mousePressed(MouseEvent e) {
 		last = new GPoint(e.getPoint());
 		currentObject = getElementAt(last);
 	}
 	
-	/* Called on mouse drag to reposition the object */
+	/** Called on mouse drag to reposition the object */
 	public void mouseDragged(MouseEvent e) {
 		if (currentObject != null) {
 			currentObject.move(e.getX() - last.getX(),
@@ -93,17 +93,17 @@ public class BoxDiagram extends GraphicsProgram {
 		}
 	}
 	
-	/* Called on mouse click to move this object to the front */
+	/** Called on mouse click to move this object to the front */
 	public void mouseClicked(MouseEvent e) {
 		if (currentObject != null) currentObject.sendToFront();
 	}
 	
-	/* Private constants */
+	/** Private constants */
 	private static final int MAX_NAME = 25;
 	private static final double BOX_WIDTH = 120;
 	private static final double BOX_HEIGHT = 50;
 	
-	/* Private instance variables */
+	/** Private instance variables */
 	private HashMap<String,GObject> contents;
 	private JTextField nameField;
 	private JButton addButton;
