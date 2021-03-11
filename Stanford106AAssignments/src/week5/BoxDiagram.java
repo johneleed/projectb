@@ -16,7 +16,7 @@ import javax.swing.*;
 
 public class BoxDiagram extends GraphicsProgram {
 	
-	/** Initializes the program */
+	/** Initializes this program */
 	public void init() {
 		contents = new HashMap<String,GObject>();
 		createController();
