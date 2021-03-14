@@ -4,100 +4,103 @@
 
 package week5;
 
-import acm.program.ConsoleProgram;
-import acm.util.*;
-import java.io.*;
 import java.util.*;
+import acm.program.*;
 
 public class FlightPlanner extends ConsoleProgram {
-
-	/** Runs the program. */
-	public void run() {
-		println("Welcome to Flight Planner!");
-		readFlightData("flights.txt");
-		println("Here's a list of all the cities in our database:");
-		printCityList(cities);
-		println("Let's plan a round-trip route!");
-		String startCity = readLine("Enter the starting city: ");
-		ArrayList<String> route = new ArrayList<String>();
-		route.add(startCity);
-		String currentCity = startCity;
-		
-		while (true) {
-			String nextCity = getNextCity(currentCity);
-			route.add(nextCity);
-			if (nextCity.equals(startCity)) break;
-			currentCity = nextCity;
-		}
-		printRoute(route);
+	
+	/* Private instance variables */
+	private FlightDB flights; //creates a new database
+	private ArrayList<String> enteredCities = new ArrayList<String>(); //keeps track of entered cities
+	private String firstCity; //keeps track of the first city entered by the user
+	
+	public void init() {
+		//passes the text file to the database to read and parse
+		flights = new FlightDB("flights.txt");
 	}
 	
-	/** Ask user for the name of the next city in the route */
-	private String getNextCity(String city) {
-		ArrayList<String> destinations = getDestinations(city);
-		String nextCity = null;
-		while (true) {
-			println("From " + city + " you can fly directly to:");
-			printCityList(destinations);
-			String prompt = "Where do you want to go from " + city + "? ";
-			nextCity = readLine(prompt);
-			if (destinations.contains(nextCity)) break;
-			println("You can't get to that city by a direct flight.");
+	/* Runs program*/
+	public void run() {
+		welcome();
+		askForFistCity();
+		askForMoreCities();
+		printFinalRoute();
+	}
+	
+	/* Welcomes the user */
+	private void welcome() {
+		println("Welcome to Flight Planner");
+		println("Here is a list of all the cities in our database");
+		Iterator<String> it = flights.getCities();
+		while(it.hasNext()) {
+			println(" " + it.next());
 		}
-		return nextCity;
+		println("Let's plan a round-trip route!");
 	}
-
-	/**
-	 * Given a starting city, looks up the destinations from that
-	 * city in the HashMap of flights, and return an array list of
-	 * the destinations that are available.
-	 */
-	private ArrayList<String> getDestinations(String fromCity) {
-		return flights.get(fromCity);
-	}
-	/**
-	 * Prints a list of cities from the array list. Each city name is
-	 * indented by a space.
-	 */
-	private void printCityList(ArrayList<String> cityList) {
-		for(int i = 0; i < cityList.size(); i++) {
-			String city = cityList.get(i);
-			println(" " + city);
-		}
-	}
-	/**
-	 * Given a list of city names, prints out the flight
-	 * route, with a " -> " between each pair of cities
-	 */
-	private void printRoute(ArrayList<String> route) {
-		println("The route you've chosen is: ");
-		for (int i = 0; i < route.size(); i++) {
-			if (i > 0) print(" -> ");
-			print(route.get(i));
-		}
-		println();
-	}
-	/**
-	 * Reads in the city information from the given file storing the
-	 * information in both the ArrayList of cities and the HashMap of
-	 * flights.
-	 */
-	private void readFlightData(String filename) {
-		flights = new HashMap<String,ArrayList<String>>();
-		cities = new ArrayList<String>();
-		try {
-			BufferedReader
-			rd = new BufferedReader(new FileReader(filename));
-			while (true) {
-				String line = rd.readLine();
-				if (line == null) break;
-				if (line.length() != 0) {
-					readFlightEntry(line);
+	
+	/* asks the user for the starting city and prints out 
+	 * all the possible destination cities for that city */
+	private void askForFistCity() {
+		while(true) {
+			firstCity = readLine("Enter the starting city: ");
+			if(flights.ContainsKey(firstCity)) {
+				enteredCities.add(firstCity);
+				break;
+			}
+			else{
+				println("You can't get to that city by a direct flight.");
+				println("Here is a list of all the cities in our database");
+				Iterator<String> it = flights.getCities();
+				while(it.hasNext()) {
+					println(" " + it.next());
 				}
 			}
-			rd.close();
-		} catch (IOException ex) {
-			throw new ErrorException(ex);x
 		}
-
+		println("From " + firstCity + " you can fly directly to:");
+		Iterator<String> it = flights.findRoute(firstCity);
+		while(it.hasNext()) {
+			println(" " + it.next());
+			}
 	}
+	
+	/* asks the user for the cities he/she wants to fly to, 
+	 * and prints out possible destination cities for each city
+	 * until the user enters the starting city */
+	private void askForMoreCities() {
+		String city = firstCity;
+		String lastCity = city;
+		while(true) {
+			city = readLine("Where do you want to go from " + city + "? ");
+			if(city.equals(firstCity)) {
+				break;
+			}
+			if(flights.ContainsKey(city) == true) {
+				lastCity = city;
+				enteredCities.add(city);
+				}
+			else{
+				city = lastCity;
+				println("You can't get to that city by a direct flight.");
+			}
+			println("From " + city + " you can fly directly to:");
+			Iterator<String> it = flights.findRoute(city);
+			while(it.hasNext()) {
+				println(" " + it.next());
+			}
+			
+		}
+	}
+	
+	/*  Given a list of city names, prints out the flight
+	route, with a " -> " between each pair of cities */
+	private void printFinalRoute() {
+		println("The route you've chosen is");
+		String route = enteredCities.get(0);
+		for(int i = 1; i<enteredCities.size(); i++) {
+			route += " -> " + enteredCities.get(i);
+		}
+		route += " -> " + enteredCities.get(0);
+		println(route);
+	}
+	
+}
