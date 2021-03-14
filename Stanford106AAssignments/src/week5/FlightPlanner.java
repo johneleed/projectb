@@ -99,6 +99,7 @@ public class FlightPlanner extends ConsoleProgram {
 		for(int i = 1; i<enteredCities.size(); i++) {
 			route += " -> " + enteredCities.get(i);
 		}
+		
 		route += " -> " + enteredCities.get(0);
 		println(route);
 	}

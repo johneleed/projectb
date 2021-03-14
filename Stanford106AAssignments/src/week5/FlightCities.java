@@ -1,6 +1,5 @@
 /*This program returns the starting city and 
- * the destinations of the starting cities
- */
+ * the destinations of the starting cities*/
 
 package week5;
 

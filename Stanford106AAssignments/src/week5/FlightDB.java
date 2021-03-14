@@ -1,5 +1,4 @@
-/* This database keeps track of all the flight routes
- */
+/* This database keeps track of all the flight routes */
 
 package week5;
 
